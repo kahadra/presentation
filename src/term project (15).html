@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 16 - Q&A (Text Version)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .pulse-circle {
+            animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+            100% { transform: scale(0.8); opacity: 0.3; }
+        }
+        .url-text {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <!-- 배경 장식 -->
+        <div class="absolute w-[500px] h-[500px] bg-blue-600 rounded-full filter blur-3xl opacity-10 pulse-circle"></div>
+
+        <!-- 메인 텍스트 -->
+        <h1 class="text-6xl font-black mb-2 tracking-tight">Thank You</h1>
+        <p class="text-xl text-gray-400 font-light mb-10">경청해 주셔서 감사합니다.</p>
+
+        <!-- Q&A 섹션 -->
+        <div class="flex items-center space-x-4 mb-10">
+            <div class="h-px w-12 bg-gray-600"></div>
+            <h2 class="text-3xl font-bold text-blue-400">Q & A</h2>
+            <div class="h-px w-12 bg-gray-600"></div>
+        </div>
+
+        <!-- 프로젝트 리소스 (텍스트 표시) -->
+        <div class="w-full max-w-5xl px-8">
+            <p class="text-center text-xs text-gray-500 mb-6 uppercase tracking-widest">Project Source Code</p>
+            
+            <div class="grid grid-cols-3 gap-6">
+                
+                <!-- 1. Preprocessing + YOLO -->
+                <div class="bg-gray-800 bg-opacity-50 border border-gray-700 p-5 rounded-lg flex flex-col items-center text-center">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i class="fab fa-kaggle text-yellow-500 text-xl"></i>
+                        <h3 class="text-sm font-bold text-white">Preprocessing + YOLO</h3>
+                    </div>
+                    <div class="bg-black bg-opacity-30 px-3 py-2 rounded w-full">
+                        <p class="url-text text-[10px] break-all">kaggle.com/code/chpark42/<br>preprocessing-yolo-pose</p>
+                    </div>
+                </div>
+
+                <!-- 2. Local (HRNet/ViTPose) -->
+                <div class="bg-gray-800 bg-opacity-50 border border-gray-700 p-5 rounded-lg flex flex-col items-center text-center">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i class="fab fa-github text-purple-500 text-xl"></i>
+                        <h3 class="text-sm font-bold text-white">Local Env (HRNet/ViTPose)</h3>
+                    </div>
+                    <div class="bg-black bg-opacity-30 px-3 py-2 rounded w-full">
+                        <p class="url-text text-[10px] break-all">kahadra.github.io/<br>HRnet_ViTpose</p>
+                    </div>
+                </div>
+
+                <!-- 3. Comparative Analysis -->
+                <div class="bg-gray-800 bg-opacity-50 border border-gray-700 p-5 rounded-lg flex flex-col items-center text-center">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i class="fab fa-kaggle text-green-500 text-xl"></i>
+                        <h3 class="text-sm font-bold text-white">Final Analysis</h3>
+                    </div>
+                    <div class="bg-black bg-opacity-30 px-3 py-2 rounded w-full">
+                        <p class="url-text text-[10px] break-all">kaggle.com/code/chpark42/<br>pose-df-yolo-hrnet-vitpose</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 하단 로고 영역 -->
+        <div class="absolute bottom-8">
+            <p class="text-[10px] text-gray-600 tracking-widest uppercase">Gachon University • Computer Engineering</p>
+        </div>
+    </div>
+
+</body>
+</html>

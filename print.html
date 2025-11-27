@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print All Slides</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            pointer-events: none;
+        }
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+                display: block;
+            }
+            .slide-container {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+            }
+            .slide-container:last-child {
+                page-break-after: auto;
+            }
+        }
+        .print-guide {
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        @media print {
+            .print-guide { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-guide">
+        <h2>PDF 저장 가이드</h2>
+        <p>1. <strong>Ctrl + P</strong> (Mac은 Cmd + P)를 누르세요.</p>
+        <p>2. 대상을 <strong>'PDF로 저장'</strong>으로 선택하세요.</p>
+        <p>3. 레이아웃을 <strong>'가로 방향(Landscape)'</strong>으로 설정하세요.</p>
+        <p>4. 설정 더보기에서 <strong>'배경 그래픽'</strong> 체크를 꼭 켜주세요.</p>
+    </div>
+
+    <div id="slides-wrapper"></div>
+
+    <script>
+        // [수정됨] 슬라이드 총 개수 15개로 변경
+        const totalSlides = 15;
+        
+        const folderName = "src";
+        const fileNamePrefix = "term project presentation (";
+        const fileNameSuffix = ").html";
+        const wrapper = document.getElementById('slides-wrapper');
+
+        for (let i = 1; i <= totalSlides; i++) {
+            const container = document.createElement('div');
+            container.className = 'slide-container';
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `${folderName}/${fileNamePrefix}${i}${fileNameSuffix}`;
+            
+            container.appendChild(iframe);
+            wrapper.appendChild(container);
+        }
+    </script>
+</body>
+</html>

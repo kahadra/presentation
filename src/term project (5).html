@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 5 - Data Preparation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .dataset-card {
+            background: rgba(31, 41, 55, 0.8);
+            border-left: 4px solid;
+        }
+        .arrow-right {
+            color: #6b7280;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-8 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-purple-500 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">데이터 구성 및 전처리 <span class="text-2xl font-light text-gray-400 ml-2">(Data Preparation)</span></h1>
+        </div>
+
+        <!-- 메인 프로세스 -->
+        <div class="flex items-center justify-between h-full pb-8">
+            
+            <!-- 1. Raw Datasets -->
+            <div class="flex flex-col space-y-4 w-1/4">
+                <h3 class="text-lg font-bold text-gray-400 mb-2">Raw Datasets</h3>
+                
+                <!-- URFALL -->
+                <div class="dataset-card border-blue-500 p-4 rounded shadow-lg">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-blue-400">URFALL</span>
+                        <i class="fas fa-images text-gray-500"></i>
+                    </div>
+                    <p class="text-xs text-gray-300">Frame Sequences</p>
+                    <p class="text-xs text-gray-500 mt-1">→ Convert to MP4</p>
+                </div>
+
+                <!-- LE2I -->
+                <div class="dataset-card border-purple-500 p-4 rounded shadow-lg">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-purple-400">LE2I</span>
+                        <i class="fas fa-file-alt text-gray-500"></i>
+                    </div>
+                    <p class="text-xs text-gray-300">Text-based Annotation</p>
+                    <p class="text-xs text-gray-500 mt-1">→ Parse Fall Timing</p>
+                </div>
+            </div>
+
+            <i class="fas fa-chevron-right arrow-right"></i>
+
+            <!-- 2. Integration -->
+            <div class="flex flex-col items-center w-1/4 bg-gray-800 p-6 rounded-xl border border-gray-600 shadow-xl">
+                <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-layer-group text-3xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Integration</h3>
+                <p class="text-sm text-gray-300 text-center">Common Metadata</p>
+                <code class="bg-black bg-opacity-50 px-2 py-1 rounded text-xs text-green-400 mt-2">meta_all.json</code>
+            </div>
+
+            <i class="fas fa-chevron-right arrow-right"></i>
+
+            <!-- 3. Clip Generation -->
+            <div class="flex flex-col space-y-4 w-1/4">
+                <h3 class="text-lg font-bold text-gray-400 mb-2">Clip Generation</h3>
+                
+                <div class="bg-gray-800 p-4 rounded border border-yellow-600 opacity-90">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-walking text-yellow-500 mr-3"></i>
+                        <span class="font-bold text-yellow-500">ADL Clips</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Normal Activities</p>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded border border-red-600 opacity-90">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-person-falling text-red-500 mr-3"></i>
+                        <span class="font-bold text-red-500">Pre-Fall Clips</span>
+                    </div>
+                    <p class="text-xs text-gray-400">1~2s before Fall</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 중요 알림 박스 (No Magnification) -->
+        <div class="mt-4 bg-red-900 bg-opacity-20 border border-red-800 rounded-lg p-4 flex items-center">
+            <div class="w-10 h-10 bg-red-800 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-ban text-white"></i>
+            </div>
+            <div>
+                <h4 class="text-red-300 font-bold text-sm">중요: 전처리 단계에서 Magnification 미적용 (Raw Video Only)</h4>
+                <p class="text-xs text-gray-400 mt-1">
+                    이유: 픽셀 기반 증폭은 원본과의 정합성을 깨뜨림. <br>
+                    → Instability 증폭은 추후 <strong>Pose JSON 데이터에 수식적으로 후처리(Post-processing)</strong>하여 적용.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

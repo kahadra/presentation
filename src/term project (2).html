@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 2 - Initial Proposal (Corrected)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .arrow-right {
+            animation: slide-right 2s infinite;
+        }
+        @keyframes slide-right {
+            0%, 100% {transform: translateX(0);}
+            50% {transform: translateX(5px);}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-8 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-blue-500 mr-4"></div>
+            <div>
+                <h1 class="text-4xl font-bold text-white">초기 연구 기획 <span class="text-2xl font-light text-gray-400 ml-2">(Initial Proposal)</span></h1>
+                <p class="text-sm text-blue-300 mt-1 tracking-wide">Pose Estimation with Motion Magnification for Long-Distance Scenarios</p>
+            </div>
+        </div>
+
+        <!-- 본문 콘텐츠 -->
+        <div class="flex flex-col h-full justify-between">
+            
+            <!-- 1. 배경 및 문제 정의 -->
+            <div class="bg-gray-800 bg-opacity-50 p-6 rounded-xl border-l-4 border-blue-400 shadow-lg mb-6">
+                <h3 class="text-xl font-bold text-blue-300 mb-2"><i class="fas fa-video mr-2"></i>배경 및 문제 의식</h3>
+                <p class="text-lg text-gray-200">
+                    CCTV 등 <span class="font-bold text-white">원거리(Long-distance) 환경</span>에서는 해상도 저하와 노이즈로 인해<br>
+                    기존 Pose Estimation 모델이 미세한 제스처(Subtle Gesture)를 인식하지 못함.
+                </p>
+            </div>
+
+            <!-- 2. 제안했던 파이프라인 (PDF 기반) -->
+            <div class="flex-1 bg-gray-900 bg-opacity-60 rounded-xl p-6 border border-gray-700 relative flex flex-col justify-center">
+                <h3 class="text-lg font-bold text-gray-300 mb-8 absolute top-6 left-6">제안 파이프라인 (Proposed Pipeline)</h3>
+                
+                <div class="flex items-center justify-between px-4">
+                    <!-- Step 1: Input -->
+                    <div class="flex flex-col items-center w-48">
+                        <div class="w-20 h-20 bg-gray-700 rounded-lg flex items-center justify-center border border-gray-500 mb-3 shadow-md">
+                            <i class="fas fa-file-video text-3xl text-gray-300"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white text-center">Input Video</h4>
+                        <p class="text-xs text-gray-400 text-center mt-1">Low Resolution<br>(Long-distance)</p>
+                    </div>
+
+                    <i class="fas fa-arrow-right text-gray-500 text-xl arrow-right"></i>
+
+                    <!-- Step 2: IPMM -->
+                    <div class="flex flex-col items-center w-56">
+                        <div class="w-20 h-20 bg-blue-900 rounded-lg flex items-center justify-center border border-blue-500 mb-3 shadow-md ring-2 ring-blue-400 ring-opacity-50">
+                            <i class="fas fa-expand-arrows-alt text-3xl text-blue-300"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-blue-200 text-center">Motion Magnification</h4>
+                        <p class="text-xs text-gray-400 text-center mt-1">IPMM Algorithm<br>(Compensate Shrinkage)</p>
+                    </div>
+
+                    <i class="fas fa-arrow-right text-gray-500 text-xl arrow-right"></i>
+
+                    <!-- Step 3: RAFT -->
+                    <div class="flex flex-col items-center w-48">
+                        <div class="w-20 h-20 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600 mb-3 shadow-md">
+                            <i class="fas fa-wind text-3xl text-green-400"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white text-center">Optical Flow</h4>
+                        <p class="text-xs text-gray-400 text-center mt-1">RAFT Refinement<br>(Sub-pixel Accuracy)</p>
+                    </div>
+
+                    <i class="fas fa-arrow-right text-gray-500 text-xl arrow-right"></i>
+
+                    <!-- Step 4: Pose Estimation -->
+                    <div class="flex flex-col items-center w-48">
+                        <div class="w-20 h-20 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600 mb-3 shadow-md">
+                            <i class="fas fa-child text-3xl text-purple-400"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white text-center">Pose Estimation</h4>
+                        <p class="text-xs text-gray-400 text-center mt-1">HRNet / ViTPose<br>(Skeleton Recovery)</p>
+                    </div>
+                </div>
+                
+                <!-- 하단 설명 -->
+                <div class="mt-8 text-center bg-blue-900 bg-opacity-20 py-2 rounded border border-blue-800">
+                    <p class="text-sm text-blue-200">
+                        "영상을 먼저 증폭(Magnification)하여 Pose Estimation 모델이 더 잘 볼 수 있게 만들자"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

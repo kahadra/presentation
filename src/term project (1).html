@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 1 - Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            color: white;
+        }
+        /* 배경 장식 요소 */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        .circle-1 {
+            width: 600px;
+            height: 600px;
+            background: #3b82f6;
+            top: -200px;
+            right: -100px;
+            filter: blur(80px);
+        }
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: #6366f1;
+            bottom: -100px;
+            left: -100px;
+            filter: blur(60px);
+        }
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#ffffff 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide flex flex-col justify-center items-start px-24 relative">
+        <!-- 배경 요소 -->
+        <div class="grid-pattern"></div>
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="z-10 w-full border-l-8 border-blue-500 pl-10 py-4 mb-12">
+            <h2 class="text-blue-400 text-2xl font-medium tracking-widest mb-2 uppercase">Term Project Process Overview</h2>
+            <h1 class="text-6xl font-black leading-tight text-white mb-4">
+                Pose Instability Amplification<br>
+                <span class="text-gray-300 font-bold">on ADL vs Pre-Fall</span>
+            </h1>
+            <p class="text-xl text-gray-400 font-light mt-6 max-w-3xl">
+                일상 활동(ADL)과 낙상 전조(Pre-Fall) 구간의<br>
+                Pose 불안정성 증폭 및 신호 분석 연구
+            </p>
+        </div>
+
+        <!-- 발표자 정보 -->
+        <div class="z-10 flex items-center space-x-8 mt-8">
+            <div class="flex items-center text-gray-300">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                    <i class="fas fa-user text-xl text-white"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-blue-300 font-bold uppercase">Presenter</p>
+                    <p class="text-2xl font-bold">박천웅</p>
+                </div>
+            </div>
+            <div class="h-10 w-px bg-gray-600"></div>
+            <div class="flex items-center text-gray-300">
+                <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                    <i class="fas fa-university text-xl text-white"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-400 font-bold uppercase">Affiliation</p>
+                    <p class="text-xl">Gachon University <span class="text-sm font-light">Computer Engineering</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 장식 -->
+        <div class="absolute bottom-10 right-12 text-right opacity-50">
+            <p class="text-xs text-gray-500 tracking-widest">COMPUTER VISION & SIGNAL PROCESSING</p>
+            <p class="text-xs text-gray-500 mt-1">2024 TERM PROJECT</p>
+        </div>
+    </div>
+
+</body>
+</html>

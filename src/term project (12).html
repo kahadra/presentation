@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 13 - Experimental Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-6 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-red-500 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">실험 결과 <span class="text-2xl font-light text-gray-400 ml-2">– No Significant Difference</span></h1>
+        </div>
+
+        <div class="flex gap-8 h-full">
+            
+            <!-- 왼쪽: 시각적 근거 (Charts) -->
+            <div class="w-7/12 grid grid-cols-2 gap-4">
+                
+                <!-- Box Plot (Figure A4) -->
+                <div class="chart-container p-4 rounded-xl flex flex-col items-center justify-center relative col-span-2 h-48">
+                    <h3 class="absolute top-3 left-4 text-sm font-bold text-gray-300">Distribution Overlap (Box Plot)</h3>
+                    <div class="flex items-end space-x-12 h-24 mt-4">
+                        <!-- ADL Box -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-24 border-2 border-yellow-500 bg-yellow-500 bg-opacity-20 relative">
+                                <div class="absolute top-1/2 w-full h-0.5 bg-yellow-300"></div> <!-- Median -->
+                                <div class="absolute -top-4 left-1/2 h-4 w-px bg-yellow-500"></div>
+                                <div class="absolute -bottom-4 left-1/2 h-4 w-px bg-yellow-500"></div>
+                            </div>
+                            <span class="text-xs text-yellow-500 mt-2 font-bold">ADL</span>
+                        </div>
+                        <!-- Pre-Fall Box -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-24 border-2 border-red-500 bg-red-500 bg-opacity-20 relative">
+                                <div class="absolute top-1/2 w-full h-0.5 bg-red-300"></div> <!-- Median -->
+                                <div class="absolute -top-4 left-1/2 h-4 w-px bg-red-500"></div>
+                                <div class="absolute -bottom-4 left-1/2 h-4 w-px bg-red-500"></div>
+                            </div>
+                            <span class="text-xs text-red-500 mt-2 font-bold">Pre-Fall</span>
+                        </div>
+                    </div>
+                    <p class="absolute bottom-3 right-4 text-xs text-gray-400">
+                        * $\Delta U$ distributions are nearly identical.
+                    </p>
+                </div>
+
+                <!-- Heatmap (Figure A3) -->
+                <div class="chart-container p-4 rounded-xl flex flex-col items-center justify-center relative h-48">
+                    <h3 class="absolute top-3 left-4 text-sm font-bold text-gray-300">Effect Size (Heatmap)</h3>
+                    <div class="w-32 h-24 bg-gradient-to-br from-teal-700 to-teal-900 border border-teal-500 flex items-center justify-center">
+                        <span class="text-teal-200 font-bold text-lg">$\approx 0$</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Cliff’s $\delta$ near Zero</p>
+                </div>
+
+                <!-- Table Summary -->
+                <div class="chart-container p-4 rounded-xl flex flex-col justify-center relative h-48">
+                    <h3 class="absolute top-3 left-4 text-sm font-bold text-gray-300">Statistical Test</h3>
+                    <table class="w-full text-xs text-center mt-2">
+                        <tr class="text-gray-500 border-b border-gray-700">
+                            <th class="pb-1">Model</th>
+                            <th class="pb-1">P-value</th>
+                            <th class="pb-1">Result</th>
+                        </tr>
+                        <tr class="text-gray-300">
+                            <td class="py-2">HRNet</td>
+                            <td class="text-red-400 font-bold">0.206</td>
+                            <td>Fail</td>
+                        </tr>
+                        <tr class="text-gray-300">
+                            <td class="py-2">ViTPose</td>
+                            <td class="text-red-400 font-bold">0.288</td>
+                            <td>Fail</td>
+                        </tr>
+                        <tr class="text-gray-300">
+                            <td class="py-2">YOLO</td>
+                            <td class="text-red-400 font-bold">0.056</td>
+                            <td>Fail</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 텍스트 결론 -->
+            <div class="w-5/12 flex flex-col justify-center space-y-6">
+                <div class="bg-red-900 bg-opacity-20 border-l-4 border-red-500 p-6 rounded-r-xl">
+                    <h3 class="text-2xl font-bold text-red-400 mb-2">Hypothesis Rejected</h3>
+                    <p class="text-lg text-gray-300">
+                        "Pose Instability는 Pre-Fall을 구분하는<br>
+                        유의미한 신호가 되지 못함."
+                    </p>
+                </div>
+
+                <ul class="space-y-4">
+                    <li class="flex items-center bg-gray-800 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-4 text-gray-400 font-bold">P</div>
+                        <div>
+                            <p class="text-sm text-gray-400">P-value</p>
+                            <p class="text-xl font-bold text-white">> 0.05 <span class="text-sm font-normal text-gray-500">(All Models)</span></p>
+                        </div>
+                    </li>
+                    <li class="flex items-center bg-gray-800 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-4 text-gray-400 font-bold">δ</div>
+                        <div>
+                            <p class="text-sm text-gray-400">Cliff’s Delta (Effect Size)</p>
+                            <p class="text-xl font-bold text-white">≈ 0.0 <span class="text-sm font-normal text-gray-500">(Negligible)</span></p>
+                        </div>
+                    </li>
+                    <li class="flex items-center bg-gray-800 p-4 rounded-lg">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-4 text-gray-400 font-bold">A</div>
+                        <div>
+                            <p class="text-sm text-gray-400">AUROC</p>
+                            <p class="text-xl font-bold text-white">Low <span class="text-sm font-normal text-gray-500">(Poor Separability)</span></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 15 - Implications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .card-box {
+            transition: transform 0.3s ease;
+        }
+        .card-box:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-8 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-teal-500 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">시사점 및 결론 <span class="text-2xl font-light text-gray-400 ml-2">(Implications)</span></h1>
+        </div>
+
+        <div class="flex gap-10 h-full">
+            
+            <!-- 1. 기술적 시사점 (Technical) -->
+            <div class="w-1/2 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center mr-3 border border-blue-500">
+                        <i class="fas fa-microchip text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-300">Technical Implications</h3>
+                </div>
+
+                <div class="card-box bg-gray-800 p-6 rounded-xl border-t-4 border-blue-500 flex-1 flex flex-col justify-center relative overflow-hidden">
+                    <!-- 배경 장식 -->
+                    <i class="fas fa-ban absolute -right-4 -bottom-4 text-9xl text-gray-700 opacity-20"></i>
+                    
+                    <ul class="space-y-6 relative z-10">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-blue-500 mt-1.5 mr-3"></i>
+                            <div>
+                                <strong class="text-white text-lg">Pose Instability의 한계 규명</strong>
+                                <p class="text-gray-400 mt-1">
+                                    Skeleton Domain은 미세 신호(Subtle Motion)를 담기에 정보량이 부족함.
+                                    <br><span class="text-sm text-red-400">→ Pre-Fall 탐지 신호로 부적합함 확인.</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mt-1.5 mr-3"></i>
+                            <div>
+                                <strong class="text-white text-lg">향후 연구 방향 제안</strong>
+                                <p class="text-gray-400 mt-1">
+                                    좌표 기반이 아닌, <span class="text-white font-bold">Pixel-wise Analysis</span> 또는 <span class="text-white font-bold">Optical Flow</span> 기반의 접근이 필수적임.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. 연구적 의의 (Research & Engineering) -->
+            <div class="w-1/2 flex flex-col">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-purple-900 rounded-full flex items-center justify-center mr-3 border border-purple-500">
+                        <i class="fas fa-user-graduate text-purple-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-purple-300">Research Value</h3>
+                </div>
+
+                <div class="card-box bg-gray-800 p-6 rounded-xl border-t-4 border-purple-500 flex-1 flex flex-col justify-center relative overflow-hidden">
+                    <!-- 배경 장식 -->
+                    <i class="fas fa-cogs absolute -right-4 -bottom-4 text-9xl text-gray-700 opacity-20"></i>
+
+                    <ul class="space-y-6 relative z-10">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-purple-500 mt-1.5 mr-3"></i>
+                            <div>
+                                <strong class="text-white text-lg">Negative Result의 가치</strong>
+                                <p class="text-gray-400 mt-1">
+                                    가설이 틀렸음을 입증하는 것도 연구의 일환.<br>
+                                    "무엇이 안 되는지"를 명확히 검증함.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tools text-green-500 mt-1.5 mr-3"></i>
+                            <div>
+                                <strong class="text-white text-lg">Engineering Struggle & Growth</strong>
+                                <p class="text-gray-400 mt-1">
+                                    단순 모델 사용을 넘어, <span class="text-green-400 font-bold">환경 충돌 해결(Code Hacking)</span> 및 <span class="text-green-400 font-bold">데이터 파이프라인 구축</span> 전 과정을 주도적으로 수행.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

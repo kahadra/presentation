@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 12 - Final Procedure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .step-box {
+            background: rgba(31, 41, 55, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+            backdrop-filter: blur(5px);
+        }
+        .arrow-right {
+            color: #4b5563;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-10 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-indigo-500 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">최종 실험 절차 <span class="text-2xl font-light text-gray-400 ml-2">(Methodology Flow)</span></h1>
+        </div>
+
+        <!-- 프로세스 흐름 -->
+        <div class="flex items-center justify-between h-full px-4">
+            
+            <!-- Step 1: Input -->
+            <div class="step-box w-1/5 p-5 rounded-xl flex flex-col items-center text-center h-64 justify-center relative">
+                <div class="absolute -top-4 bg-gray-700 px-3 py-1 rounded-full text-xs font-bold">Step 1</div>
+                <i class="fas fa-file-code text-4xl text-yellow-500 mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Raw Pose JSON</h3>
+                <p class="text-xs text-gray-400">Original Coordinates<br>$(x, y, conf)$</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow-right"></i>
+
+            <!-- Step 2: Baseline Calc -->
+            <div class="step-box w-1/5 p-5 rounded-xl flex flex-col items-center text-center h-64 justify-center relative">
+                <div class="absolute -top-4 bg-gray-700 px-3 py-1 rounded-full text-xs font-bold">Step 2</div>
+                <i class="fas fa-chart-line text-4xl text-blue-400 mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Baseline Instability</h3>
+                <div class="text-sm text-blue-300 font-mono bg-black bg-opacity-30 px-2 py-1 rounded">
+                    $U_{raw} = Var(t)$
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Before Magnification</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow-right"></i>
+
+            <!-- Step 3: Signal Amplification (핵심) -->
+            <div class="step-box w-1/5 p-5 rounded-xl flex flex-col items-center text-center h-64 justify-center border-2 border-indigo-500 bg-indigo-900 bg-opacity-20 relative shadow-lg">
+                <div class="absolute -top-4 bg-indigo-600 px-3 py-1 rounded-full text-xs font-bold text-white">Step 3 (Core)</div>
+                <i class="fas fa-bolt text-4xl text-yellow-400 mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Signal Amplification</h3>
+                <div class="text-xs text-gray-300 mb-2">Post-processing Formula</div>
+                <div class="text-sm text-yellow-300 font-mono bg-black bg-opacity-50 px-2 py-1 rounded">
+                    $P' = P + \alpha(P - \bar{P})$
+                </div>
+                <p class="text-xs text-gray-400 mt-2">$\alpha$: Magnification Factor</p>
+            </div>
+
+            <i class="fas fa-chevron-right arrow-right"></i>
+
+            <!-- Step 4: Delta U & Stats -->
+            <div class="step-box w-1/5 p-5 rounded-xl flex flex-col items-center text-center h-64 justify-center relative">
+                <div class="absolute -top-4 bg-gray-700 px-3 py-1 rounded-full text-xs font-bold">Step 4</div>
+                <i class="fas fa-balance-scale text-4xl text-green-400 mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Compare $\Delta U$</h3>
+                <div class="text-sm text-green-300 font-mono bg-black bg-opacity-30 px-2 py-1 rounded mb-2">
+                    $\Delta U = U_{amp} - U_{raw}$
+                </div>
+                <p class="text-xs text-gray-400">ADL vs Pre-Fall<br>(Mann-Whitney U)</p>
+            </div>
+
+        </div>
+
+        <!-- 하단 설명 -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-400 text-sm">
+                * 영상 처리가 아닌, <span class="text-white font-bold">좌표 데이터(Signal)에 대한 수식적 증폭</span>을 통해 노이즈 왜곡 없이 순수한 불안정성 변화를 측정함.
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

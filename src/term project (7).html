@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 7 - 1st Experiment (YOLO)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .jitter-line {
+            stroke-dasharray: 5;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -10; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-8 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-gray-400 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">1차 실험 – YOLO 단독 <span class="text-2xl font-light text-gray-400 ml-2">(Trial 1)</span></h1>
+        </div>
+
+        <!-- 본문 -->
+        <div class="flex gap-10 h-full">
+            
+            <!-- 왼쪽: 실험 배경 및 결과 -->
+            <div class="w-1/2 flex flex-col space-y-6">
+                <!-- 이유 -->
+                <div class="bg-gray-800 p-6 rounded-xl border-l-4 border-gray-500">
+                    <h3 class="text-xl font-bold text-gray-300 mb-2">실험 배경</h3>
+                    <p class="text-gray-400">
+                        Kaggle 기본 환경에서 추가 설치 없이 즉시 실행 가능한<br>
+                        <span class="text-white font-bold">YOLOv8-Pose</span>를 베이스라인으로 선정
+                    </p>
+                </div>
+
+                <!-- 결과 -->
+                <div class="bg-gray-800 p-6 rounded-xl border-l-4 border-red-500 flex-1">
+                    <h3 class="text-xl font-bold text-red-400 mb-4">실험 결과 (Negative Result)</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span>$\Delta var_{xy}$ 및 $\Delta var_{conf}$ 계산 완료</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span>하지만, <strong class="text-white">ADL vs Pre-Fall 간의 유의미한 차이 없음</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-area text-red-500 mt-1 mr-3"></i>
+                            <span>분포가 거의 완벽하게 겹침 (Overlap)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 원인 분석 및 결론 -->
+            <div class="w-1/2 bg-gray-900 bg-opacity-60 rounded-xl p-8 border border-gray-700 flex flex-col items-center justify-center text-center">
+                
+                <!-- Jitter 시각화 -->
+                <div class="mb-6 relative w-full h-32 flex items-center justify-center bg-gray-800 rounded-lg border border-gray-600">
+                    <p class="absolute top-2 left-2 text-xs text-gray-500">YOLO Signal Quality</p>
+                    <svg width="300" height="80" viewBox="0 0 300 80">
+                        <!-- 심한 노이즈 라인 -->
+                        <path d="M10,40 Q30,10 50,40 T90,40 T130,40 T170,40 T210,40 T250,40 T290,40" 
+                              fill="none" stroke="#ef4444" stroke-width="3" 
+                              style="filter: drop-shadow(0 0 2px red);"/>
+                        <path d="M10,40 L30,20 L50,60 L70,30 L90,50 L110,25 L130,55 L150,35 L170,45 L190,15 L210,65 L230,35 L250,45 L270,25 L290,40" 
+                              fill="none" stroke="#ef4444" stroke-width="1" opacity="0.6"/>
+                    </svg>
+                    <p class="absolute bottom-2 text-red-400 font-bold text-sm">High Jitter (Noise)</p>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mb-4">원인: "YOLO is too shaky"</h3>
+                <p class="text-gray-300 mb-8 leading-relaxed">
+                    YOLO는 가볍고 빠르지만, 정지 상태에서도<br>
+                    Keypoint가 미세하게 떨리는 <strong>Jitter 현상</strong>이 심함.<br>
+                    <span class="text-sm text-gray-500">→ 이 노이즈가 우리가 찾으려는 '미세한 신호'를 덮어버림.</span>
+                </p>
+
+                <div class="w-full border-t border-gray-600 pt-6">
+                    <p class="text-blue-400 font-bold text-lg mb-2">Conclusion</p>
+                    <div class="bg-blue-600 text-white py-3 px-6 rounded-lg font-bold shadow-lg">
+                        "더 정교한 모델(HRNet, ViTPose)이 필요하다"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

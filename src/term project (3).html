@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 3 - Discarded Reason (Corrected)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .x-mark {
+            animation: scale-up 0.5s ease-out forwards;
+        }
+        @keyframes scale-up {
+            0% {transform: scale(0); opacity: 0;}
+            80% {transform: scale(1.2); opacity: 1;}
+            100% {transform: scale(1); opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide p-10 flex flex-col">
+        <!-- 헤더 -->
+        <div class="flex items-center mb-8 border-b border-gray-600 pb-4">
+            <div class="w-2 h-10 bg-red-500 mr-4"></div>
+            <h1 class="text-4xl font-bold text-white">연구 기획 폐기 사유 <span class="text-2xl font-light text-gray-400 ml-2">– 구조적 비효율 (Structural Inefficiency)</span></h1>
+        </div>
+
+        <!-- 본문: 문제점 분석 -->
+        <div class="flex flex-1 gap-8">
+            
+            <!-- 왼쪽: 기대와 현실 -->
+            <div class="w-1/2 flex flex-col space-y-6">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-bold text-blue-300 mb-3">초기 가설 (Hypothesis)</h3>
+                    <p class="text-gray-300">
+                        "움직임을 증폭하면(Magnification),<br>
+                        Pose Model이 <span class="text-white font-bold">더 명확한 특징(Feature)</span>을 잡을 것이다."
+                    </p>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-xl border border-red-500 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-red-900 opacity-20 text-9xl">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-red-400 mb-3">실제 결과 (Reality)</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mt-1.5 mr-3"></i>
+                            <span>Magnification은 <strong>배경 노이즈와 왜곡(Artifacts)</strong>까지 함께 증폭시킴.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mt-1.5 mr-3"></i>
+                            <span>Pose Estimation은 픽셀의 미세 변화보다 <strong>구조적 정합성</strong>을 중시함.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mt-1.5 mr-3"></i>
+                            <span>증폭된 픽셀 정보가 Skeleton 추출 과정에서 <strong>오히려 방해 요소</strong>로 작용.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 도식화 -->
+            <div class="w-1/2 bg-gray-900 bg-opacity-60 rounded-xl p-6 border border-gray-700 flex flex-col items-center justify-center relative">
+                
+                <!-- Pixel Domain -->
+                <div class="text-center mb-8 opacity-50">
+                    <i class="fas fa-video text-4xl text-gray-400 mb-2"></i>
+                    <p class="text-sm">Pixel Domain (Magnified)</p>
+                    <p class="text-xs text-red-400">Noise Increased</p>
+                </div>
+
+                <i class="fas fa-arrow-down text-gray-600 text-xl mb-8"></i>
+
+                <!-- Skeleton Domain -->
+                <div class="text-center mb-2">
+                    <i class="fas fa-project-diagram text-4xl text-gray-400 mb-2"></i>
+                    <p class="text-sm">Skeleton Domain</p>
+                    <p class="text-xs text-gray-500">Information Lost</p>
+                </div>
+
+                <!-- X Mark -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <i class="fas fa-times text-red-600 text-9xl opacity-80 x-mark" style="filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));"></i>
+                </div>
+
+                <div class="absolute bottom-6 w-full text-center px-4">
+                    <p class="text-lg font-bold text-white bg-red-900 bg-opacity-80 py-2 rounded">
+                        "영상 증폭은 Pose 정확도 향상에 기여하지 않음"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
