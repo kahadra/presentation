@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<script>
+		MathJax = {
+		  tex: {
+			inlineMath: [['$', '$'], ['\\(', '\\)']]
+		  },
+		  svg: {
+			fontCache: 'global'
+		  }
+		};
+		</script>
+	<script type="text/javascript" id="MathJax-script" async
+		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+	</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide 7 - 1st Experiment (YOLO)</title>
+    <title>Slide 4 - Redefined Objective</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
+		.math-inline {
+			white-space: nowrap;
+		}
+
+		mjx-container[jax="SVG"] {
+			display: inline-block;
+		}
         body {
             margin: 0;
             padding: 0;
@@ -27,12 +47,14 @@
             overflow: hidden;
             color: white;
         }
-        .jitter-line {
-            stroke-dasharray: 5;
-            animation: dash 1s linear infinite;
+        .metric-box {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
         }
-        @keyframes dash {
-            to { stroke-dashoffset: -10; }
+        .metric-box:hover {
+            border-color: rgba(59, 130, 246, 0.8);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -106,7 +128,7 @@
                 <div class="w-full border-t border-gray-600 pt-6">
                     <p class="text-blue-400 font-bold text-lg mb-2">Conclusion</p>
                     <div class="bg-blue-600 text-white py-3 px-6 rounded-lg font-bold shadow-lg">
-                        "더 정교한 모델(HRNet, ViTPose)이 필요하다"
+                        "더 정교한 모델(HRNet, ViTPose)이라면 다르지 않을까?"
                     </div>
                 </div>
             </div>
