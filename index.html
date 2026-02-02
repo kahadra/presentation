@@ -3,115 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Term Project Presentation Viewer</title>
+    <title>감시 파이프라인 확장 발표 자료</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            overflow: hidden;
-            font-family: sans-serif;
-        }
-        #slide-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-        .controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(50, 50, 50, 0.8);
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
-        }
-        body:hover .controls {
-            opacity: 1;
-        }
-        button {
-            background: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        button:hover { background: #ddd; }
-        .page-info {
-            color: white;
-            font-size: 14px;
-            min-width: 60px;
-            text-align: center;
-        }
+        :root { --primary: #1e40af; --secondary: #3b82f6; --slide-bg: #ffffff; }
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #111827; margin: 0; overflow: hidden; user-select: none; }
+        
+        /* 슬라이드 기본 구조 */
+        .slide { width: 1280px; height: 720px; margin: auto; position: relative; background: var(--slide-bg); display: none; flex-direction: column; overflow: hidden; }
+        .slide.active { display: flex; }
+        .content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 100px; position: relative; }
+        .header-line { height: 8px; background: linear-gradient(90deg, #1e40af, #60a5fa); }
+        
+        /* 박스 디자인 개선 (배경색 명시적 지정) */
+        .info-box { border-radius: 1rem; border: 1px solid #e5e7eb; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .bg-red-soft { background-color: #fff5f5 !important; border-color: #feb2b2; }
+        .bg-green-soft { background-color: #f0fff4 !important; border-color: #9ae6b4; }
+        .bg-blue-soft { background-color: #ebf8ff !important; border-color: #bee3f8; }
+        .bg-gray-soft { background-color: #f7fafc !important; border-color: #edf2f7; }
+        
+        /* 코드 블록 */
+        .code-block { font-family: 'Fira Code', monospace; background: #1e293b; color: #e2e8f0; padding: 1.2rem; border-radius: 0.5rem; font-size: 0.9rem; line-height: 1.4; }
+        
+        /* 차트 및 다이어그램 */
+        .chart-container { height: 300px; display: flex; align-items: flex-end; justify-content: space-around; border-bottom: 2px solid #cbd5e1; padding-bottom: 10px; }
+        .bar { width: 100px; position: relative; transition: all 0.6s ease; }
+        .bar-label { position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 1rem; color: #475569; width: 150px; text-align: center; }
+        .bar-value { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); font-weight: 800; font-size: 1.2rem; }
+        
+        .nav-hint { position: absolute; bottom: 20px; right: 30px; font-size: 0.75rem; color: #94a3b8; pointer-events: none; }
     </style>
 </head>
-<body>
+<body onclick="nextSlide()">
 
-    <iframe id="slide-frame" src=""></iframe>
-
-    <div class="controls">
-        <button onclick="prevSlide()">◀ Prev</button>
-        <span class="page-info" id="page-num">1 / 15</span>
-        <button onclick="nextSlide()">Next ▶</button>
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide-1">
+        <div class="header-line"></div>
+        <div class="content items-center text-center">
+            <h1 class="text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                사람 연속성 유지 중심의<br><span class="text-blue-700">감시 파이프라인 확장</span>
+            </h1>
+            <p class="text-2xl text-slate-500 font-light mb-12">YOLO miss 보조 및 로그 체계화</p>
+            <div class="flex gap-4">
+                <div class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-bold">YOLOv7-tiny</div>
+                <div class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full font-bold">GMM Support</div>
+                <div class="px-4 py-2 bg-slate-200 text-slate-700 rounded-full font-bold">PID Tracking</div>
+            </div>
+        </div>
     </div>
 
+    <!-- Slide 2: Success Criteria (배경색 수정 완료) -->
+    <div class="slide" id="slide-2">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12"><i class="fas fa-check-circle text-blue-600 mr-4"></i>성공 기준 정의</h2>
+            <div class="grid grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="info-box bg-red-soft border-l-8 border-red-500">
+                        <h4 class="font-bold text-red-700 text-xl mb-1">YOLO miss</h4>
+                        <p class="text-slate-700">추적 중인 사람이 화면에 있음에도 YOLO가 검출하지 못한 순간</p>
+                    </div>
+                    <div class="info-box bg-green-soft border-l-8 border-green-500">
+                        <h4 class="font-bold text-green-700 text-xl mb-1">GMM assist</h4>
+                        <p class="text-slate-700">YOLO miss 상황에서 GMM support가 작동하여 추적을 유지한 순간</p>
+                    </div>
+                    <div class="info-box bg-gray-soft border-l-8 border-slate-400">
+                        <h4 class="font-bold text-slate-700 text-xl mb-1">True Loss (소실)</h4>
+                        <p class="text-slate-700">YOLO miss와 GMM miss가 동시에 발생하여 객체를 놓친 상태</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="w-72 p-5 bg-white border-2 border-slate-200 rounded-xl text-center font-bold shadow-sm">YOLO Detection</div>
+                    <i class="fas fa-arrow-down text-slate-300 text-2xl"></i>
+                    <div class="w-72 p-6 bg-blue-600 text-white rounded-xl text-center font-bold shadow-lg text-xl">GMM Support (Assist)</div>
+                    <i class="fas fa-arrow-down text-slate-300 text-2xl"></i>
+                    <div class="w-72 p-5 bg-red-50 border-2 border-red-200 text-red-600 rounded-xl text-center font-bold">True Loss</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Strategy (배경색 및 점선 수정) -->
+    <div class="slide" id="slide-3">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12 text-center">영상 처리 전략: 평가와 검증의 분리</h2>
+            <div class="flex flex-col items-center space-y-10">
+                <div class="w-2/3 p-8 bg-gray-soft border-2 border-slate-200 rounded-2xl text-center shadow-sm">
+                    <p class="text-2xl font-bold text-slate-800 mb-2">원본 영상 (5~10분)</p>
+                    <p class="text-slate-500">전체 맥락 및 장기 데이터 확보</p>
+                </div>
+                <div class="flex gap-10 w-full">
+                    <div class="flex-1 p-10 bg-blue-soft border-2 border-dashed border-blue-300 rounded-3xl shadow-sm">
+                        <h4 class="font-bold text-blue-700 text-xl mb-4 text-center">A. 전체 가공 영상</h4>
+                        <p class="text-slate-600 text-center leading-relaxed">운용 안정성 정성 검증 및<br>예외 상황 파악</p>
+                    </div>
+                    <div class="flex-1 p-10 bg-green-soft border-2 border-dashed border-green-300 rounded-3xl shadow-sm">
+                        <h4 class="font-bold text-green-700 text-xl mb-4 text-center">B. 대표 60초 클립</h4>
+                        <p class="text-slate-600 text-center leading-relaxed">사람 활동 집중 구간 추출 및<br>정량적 분석 로그 생성</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Roadmap -->
+    <div class="slide" id="slide-4">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12"><i class="fas fa-map-signs text-blue-600 mr-4"></i>실험 단계 로드맵</h2>
+            <div class="grid grid-cols-4 gap-6">
+                <div class="p-8 bg-gray-soft rounded-2xl border-t-8 border-slate-400 shadow-sm">
+                    <h4 class="font-bold text-xl mb-3">1-2차</h4>
+                    <p class="text-sm text-slate-600">문제 확인<br>(초기 영상/YOLOv8)</p>
+                </div>
+                <div class="p-8 bg-blue-soft rounded-2xl border-t-8 border-blue-400 shadow-sm">
+                    <h4 class="font-bold text-blue-700 text-xl mb-3">3차</h4>
+                    <p class="text-sm text-slate-600">Score 기반<br>"lost 위험도" 로그 생성</p>
+                </div>
+                <div class="p-8 bg-blue-100 rounded-2xl border-t-8 border-blue-600 shadow-sm">
+                    <h4 class="font-bold text-blue-800 text-xl mb-3">4차</h4>
+                    <p class="text-sm text-slate-600">Score + Assist<br>순간 분리 기록</p>
+                </div>
+                <div class="p-8 bg-blue-600 text-white rounded-2xl border-t-8 border-blue-900 shadow-xl">
+                    <h4 class="font-bold text-xl mb-3">5차</h4>
+                    <p class="text-sm text-blue-100">Score + Assist +<br>PID/SSO 통합 완성</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Initial Results -->
+    <div class="slide" id="slide-5">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-10">초기 실험 결과: YOLO Gap의 구조적 빈번함</h2>
+            <div class="grid grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-4 rounded-xl shadow-xl border border-slate-200">
+                <img src="src/gap.png" alt="YOLO Gap Count" class="w-full h-auto rounded-lg shadow-inner object-contain">
+            </div>
+                <div class="space-y-6">
+                    <div class="p-8 bg-blue-soft rounded-2xl border-l-8 border-blue-500 shadow-sm">
+                        <h4 class="font-bold text-blue-900 text-xl mb-3">핵심 발견</h4>
+                        <p class="text-slate-700 leading-relaxed text-lg">YOLO Miss는 특정 환경의 예외가 아니라, 모든 영상에서 반복되는 <b>구조적 현상</b>임을 확인했습니다.</p>
+                    </div>
+                    <p class="text-sm text-slate-400 italic text-right">* 모델/영상이 3차 이후와 다르므로 직접적인 수치 비교는 지양함</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: 3rd Exp Goal (배경색 수정) -->
+    <div class="slide" id="slide-6">
+        <div class="header-line"></div>
+        <div class="content items-center">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12">3차 실험 목표: 'Lost 위험도 Score' 체계 구축</h2>
+            <div class="w-full max-w-5xl p-12 bg-gray-soft border-2 border-slate-200 rounded-3xl shadow-inner text-center mb-12">
+                <code class="text-4xl text-blue-700 font-bold">score = 3*lost_events + 1*hard_lost + 0.2*temp_lost</code>
+            </div>
+            <div class="grid grid-cols-3 gap-8 w-full max-w-5xl">
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200 text-center">
+                    <h4 class="font-bold text-rose-600 text-xl mb-2">lost_events</h4>
+                    <p class="text-slate-500">최종 LOST 전이 트랙 수</p>
+                </div>
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200 text-center">
+                    <h4 class="font-bold text-orange-600 text-xl mb-2">hard_lost</h4>
+                    <p class="text-slate-500">GMM 보조 실패 트랙 수</p>
+                </div>
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200 text-center">
+                    <h4 class="font-bold text-blue-600 text-xl mb-2">temp_lost</h4>
+                    <p class="text-slate-500">현재 TEMP_LOST 트랙 수</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: 3rd Exp Extraction -->
+    <div class="slide" id="slide-7">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-10">3차 실험 데이터 추출 프로세스</h2>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <h4 class="font-bold text-slate-500 text-sm uppercase tracking-widest">events.csv 스키마</h4>
+                    <div class="code-block">
+<pre><code>frame_idx, score
+0, 0.0
+124, 1.2
+125, 4.2</code></pre>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-5 p-5 bg-blue-soft rounded-xl border border-blue-200 shadow-sm">
+                        <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                        <p class="text-slate-700 font-medium">YOLO det & Track 상태 업데이트</p>
+                    </div>
+                    <div class="flex items-center gap-5 p-5 bg-blue-soft rounded-xl border border-blue-200 shadow-sm">
+                        <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                        <p class="text-slate-700 font-medium">freeze_mask 생성 및 GMM 적용</p>
+                    </div>
+                    <div class="flex items-center gap-5 p-5 bg-blue-soft rounded-xl border border-blue-200 shadow-sm">
+                        <span class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                        <p class="text-slate-700 font-medium">gmm_support 판정 및 Score 계산</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: 3rd Exp Visualization -->
+    <div class="slide" id="slide-8">
+		<div class="header-line"></div>
+		<div class="content">
+			<h2 class="text-4xl font-bold text-slate-800 mb-8">3차 결과 분석: 위험 구간 가시화 및 원인</h2>
+			<div class="grid grid-cols-12 gap-8">
+				<!-- 그래프 영역: flex justify-center 추가 -->
+				<div class="col-span-7 bg-white p-8 rounded-3xl shadow-lg border border-slate-200 flex flex-col justify-between">
+					<p class="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Risk Score Timeline</p>
+					<div class="h-48 flex items-end justify-center gap-2 border-b-2 border-slate-100 pb-1">
+						<div class="bg-blue-200 w-6 h-12"></div>
+						<div class="bg-blue-200 w-6 h-16"></div>
+						<div class="bg-red-400 w-6 h-40"></div>
+						<div class="bg-red-500 w-6 h-48"></div> <!-- Peak 중심 -->
+						<div class="bg-red-400 w-6 h-32"></div>
+						<div class="bg-blue-200 w-6 h-10"></div>
+						<div class="bg-blue-200 w-6 h-20"></div>
+					</div>
+					<p class="text-center text-sm text-slate-400 mt-6">Score Peak = TEMP_LOST + hard_lost 중첩 구간</p>
+				</div>
+				<div class="col-span-5 flex flex-col justify-center space-y-6">
+					<div class="p-6 bg-red-soft rounded-2xl border border-red-200 shadow-sm">
+						<h4 class="font-bold text-red-800 mb-3 text-lg"><i class="fas fa-exclamation-circle mr-2"></i>주요 발생 원인</h4>
+						<ul class="text-slate-700 space-y-3">
+							<li>• <b>Occlusion:</b> 구조물에 의한 일시적 가려짐</li>
+							<li>• <b>Crowded:</b> 객체 간 겹침 현상</li>
+							<li>• <b>Motion Blur:</b> 갑작스러운 빠른 움직임</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Slide 9: 4th Exp Goal -->
+    <div class="slide" id="slide-9">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12 text-center">4차 실험 목표: 보조(Assist) 순간의 분리 기록</h2>
+            <div class="flex gap-12 items-center justify-center">
+                <div class="flex-1 max-w-md p-12 bg-gray-soft rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <h4 class="text-slate-400 font-bold mb-6 text-xl">기존 (3차)</h4>
+                    <p class="text-3xl font-bold text-slate-700">Score 타임라인</p>
+                    <p class="text-slate-500 mt-4">위험 구간 위치 파악</p>
+                </div>
+                <i class="fas fa-plus text-4xl text-blue-500"></i>
+                <div class="flex-1 max-w-md p-12 bg-blue-600 rounded-3xl shadow-xl text-center text-white">
+                    <h4 class="text-blue-200 font-bold mb-6 text-xl">추가 (4차)</h4>
+                    <p class="text-3xl font-bold">Assist 로그</p>
+                    <p class="text-blue-100 mt-4">실제 보조 개입 순간 기록</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: 4th Exp CSV -->
+    <div class="slide" id="slide-10">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-10">4차 추가 데이터: Assist 로그 스키마</h2>
+            <div class="max-w-5xl mx-auto w-full space-y-10">
+                <div class="code-block p-8">
+                    <p class="text-yellow-400 font-bold mb-4 text-xl">gmm_assist_when_yolo_lost.csv</p>
+<pre><code>frame_idx, track_id, cls, fg_ratio, x1, y1, x2, y2</code></pre>
+                </div>
+                <div class="p-10 bg-blue-soft rounded-3xl border-2 border-blue-300 text-center shadow-sm">
+                    <p class="text-3xl font-bold text-blue-800 mb-4">"TEMP_LOST AND gmm_support == True"</p>
+                    <p class="text-slate-600 text-lg">보조 시스템이 추적 유지에 기여한 시점만을 정밀하게 기록</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: 4th Exp Analysis (차트 높이 수정) -->
+    <div class="slide" id="slide-11">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12 text-center">4차 분석: 보조 성공과 실제 소실의 분리</h2>
+            <div class="max-w-4xl mx-auto w-full bg-gray-soft p-12 rounded-3xl border border-slate-200 shadow-inner">
+                <div class="chart-container" style="height: 280px;">
+                    <div class="bar bg-blue-500 rounded-t-xl" style="height: 140px;">
+                        <span class="bar-value text-blue-600">42%</span>
+                        <span class="bar-label">Assist<br><span class="text-sm font-normal text-slate-400">(보조 성공)</span></span>
+                    </div>
+                    <div class="bar bg-red-500 rounded-t-xl" style="height: 200px;">
+                        <span class="bar-value text-red-600">58%</span>
+                        <span class="bar-label">True Loss<br><span class="text-sm font-normal text-slate-400">(최종 소실)</span></span>
+                    </div>
+                </div>
+                <p class="mt-20 text-center text-2xl font-medium text-slate-800">
+                    위험 구간 내에서 <span class="text-blue-600 font-bold">보조 시스템의 실질적 기여도</span>를 정량적으로 분석
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: 5th Exp Goal -->
+    <div class="slide" id="slide-12">
+        <div class="header-line"></div>
+        <div class="content items-center">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12">5차 실험 목표: 기록을 통한 '연속성'의 증명</h2>
+            <div class="grid grid-cols-2 gap-12 w-full max-w-5xl">
+                <div class="p-12 bg-white rounded-3xl shadow-md border border-slate-200 text-center">
+                    <i class="fas fa-id-card text-5xl text-blue-500 mb-6"></i>
+                    <h4 class="font-bold text-2xl mb-3 text-slate-800">정체성 중심 로그</h4>
+                    <p class="text-slate-500">Track ID를 넘어 PID 기반의 연속성 관리</p>
+                </div>
+                <div class="p-12 bg-white rounded-3xl shadow-md border border-slate-200 text-center">
+                    <i class="fas fa-database text-5xl text-green-500 mb-6"></i>
+                    <h4 class="font-bold text-2xl mb-3 text-slate-800">로그 4종 체계화</h4>
+                    <p class="text-slate-500">Events / Assist / PID / SSO 역할 분리</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: 5th Exp Change -->
+    <div class="slide" id="slide-13">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12 text-center">5차 핵심 변화: Track ID에서 PID로의 전환</h2>
+            <div class="flex items-center justify-center gap-16">
+                <div class="p-10 bg-gray-soft rounded-2xl border border-slate-200 text-center w-72 shadow-sm">
+                    <p class="text-sm text-slate-400 mb-3">4차 Assist 로그</p>
+                    <p class="text-xl font-bold text-slate-700">Key = track_id</p>
+                </div>
+                <i class="fas fa-arrow-right text-4xl text-blue-500"></i>
+                <div class="p-10 bg-blue-soft border-2 border-blue-400 rounded-2xl text-center w-72 shadow-md">
+                    <p class="text-sm text-blue-400 mb-3">5차 Assist 로그</p>
+                    <p class="text-xl font-bold text-blue-800">Key = PID</p>
+                </div>
+            </div>
+            <div class="mt-12 max-w-3xl mx-auto">
+                <div class="code-block">
+<pre><code># 5차 assist_logs 예시
+assist_logs.append((frame, pid, cls, fg_ratio, bbox...))</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 14: 5th Exp Logic -->
+    <div class="slide" id="slide-14">
+        <div class="header-line"></div>
+        <div class="content items-center">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12">5차 파일별 추출 로직 및 데이터 구조</h2>
+            <div class="grid grid-cols-2 gap-8 w-full max-w-5xl">
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-blue-600 text-xl mb-2">events.csv</h4>
+                    <p class="text-sm text-slate-400 mb-3">score = 3*lost + 1*hard + 0.2*temp</p>
+                    <p class="text-slate-600">프레임별 리스크 지수 타임라인</p>
+                </div>
+                <div class="p-8 bg-blue-600 rounded-2xl shadow-lg text-white">
+                    <h4 class="font-bold text-xl mb-2">assist_logs.csv</h4>
+                    <p class="text-xs text-blue-200 mb-3">TEMP_LOST & GMM_Support & PID</p>
+                    <p class="text-sm">보조 시스템의 실질적 개입 시점 기록</p>
+                </div>
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 text-xl mb-2">pid_tracks.csv</h4>
+                    <p class="text-sm text-slate-400 mb-3">Frame, TID, PID, State, Motion, BBox</p>
+                    <p class="text-slate-600">객체별 고유 정체성 및 상태 통합 로그</p>
+                </div>
+                <div class="p-8 bg-white rounded-2xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 text-xl mb-2">sso_tracks.csv</h4>
+                    <p class="text-sm text-slate-400 mb-3">DTrack (SSO_ACTIVE) Only</p>
+                    <p class="text-slate-600">장기 정지 객체(SSO) 전용 추적 데이터</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 15: Technical Workflow -->
+    <div class="slide" id="slide-15">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-8">Kaggle 기반 분석 워크플로우 및 핵심 파라미터</h2>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <div class="code-block">
+<pre><code># 핵심 파라미터 설정
+YCONF = 0.25 / YIOU = 0.45
+GMM_ALPHA = 0.005
+TRACK_TTL = 20 (Lost 판단 기준)
+SSO_MIN_FRAMES = 60 (~2sec)</code></pre>
+                    </div>
+                    <div class="p-6 bg-blue-soft rounded-2xl border border-blue-200 shadow-sm">
+                        <h4 class="font-bold text-blue-900 text-lg mb-3">핵심 정책: Freeze Mask</h4>
+                        <p class="text-slate-700 leading-relaxed">
+                            <code>freeze_mask = bbox_freeze | change_bool | sso_mask</code><br>
+                            YOLO 검출 영역, 변화 감지 영역, 정지 객체 영역을 통합하여 GMM 업데이트를 제어합니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center space-y-6">
+                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                        <p class="text-slate-700 font-medium"><b>YOLOv7-tiny</b> 기반 고속 객체 검출</p>
+                    </div>
+                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                        <p class="text-slate-700 font-medium"><b>CTrack/DTrack</b> 이원화 관리 (연속/정지)</p>
+                    </div>
+                    <div class="flex items-center gap-5 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                        <p class="text-slate-700 font-medium"><b>GMM Support</b> 판정 및 Risk Score 계산</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 16: Future Plan -->
+    <div class="slide" id="slide-16">
+        <div class="header-line"></div>
+        <div class="content">
+            <h2 class="text-4xl font-bold text-slate-800 mb-12">성과 및 향후 계획</h2>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="p-10 bg-blue-soft rounded-3xl border-l-8 border-blue-500 shadow-md">
+                    <h4 class="font-bold text-blue-900 text-2xl mb-6">현재 성과</h4>
+                    <p class="text-slate-700 leading-relaxed text-lg">
+                        "사람 연속성을 영상으로 주장하는 것이 아니라,<br>
+                        <b>정형화된 기록으로 설명</b>할 수 있는 체계 구축"
+                    </p>
+                </div>
+                <div class="space-y-6 p-6">
+                    <h4 class="font-bold text-slate-800 text-xl mb-4">다음 실험 계획</h4>
+                    <ul class="text-slate-600 space-y-4 text-lg">
+                        <li>• <i class="fas fa-arrow-right text-blue-500 mr-2"></i>원거리 이동 / 월담 / 음영 시나리오 확장</li>
+                        <li>• <i class="fas fa-arrow-right text-blue-500 mr-2"></i>Score/Assist 기반 취약점 정량화</li>
+                        <li>• <i class="fas fa-arrow-right text-blue-500 mr-2"></i>사물(SSO) 배경 정책 업데이트 강화</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-hint">클릭 또는 방향키(←, →)로 이동</div>
+
     <script>
-        // [수정됨] 슬라이드 총 개수 15개로 변경
-        const totalSlides = 15; 
-        
-        const folderName = "src";
-        const fileNamePrefix = "term project (";
-        const fileNameSuffix = ").html";
-
         let currentSlide = 1;
+        const totalSlides = 16;
 
-        const frame = document.getElementById('slide-frame');
-        const pageNum = document.getElementById('page-num');
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > slides.length) currentSlide = 1;
+            else if (n < 1) currentSlide = slides.length;
+            else currentSlide = n;
 
-        function loadSlide(index) {
-            if (index < 1) index = 1;
-            if (index > totalSlides) index = totalSlides;
-            
-            currentSlide = index;
-            
-            const path = `${folderName}/${fileNamePrefix}${currentSlide}${fileNameSuffix}`;
-            frame.src = path;
-            
-            pageNum.textContent = `${currentSlide} / ${totalSlides}`;
+            slides.forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('slide-' + currentSlide);
+            if (target) target.classList.add('active');
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                loadSlide(currentSlide + 1);
-            }
-        }
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
 
-        function prevSlide() {
-            if (currentSlide > 1) {
-                loadSlide(currentSlide - 1);
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") {
-                nextSlide();
-            } else if (e.key === "ArrowLeft") {
-                prevSlide();
-            }
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
         });
-
-        loadSlide(1);
     </script>
 </body>
 </html>
